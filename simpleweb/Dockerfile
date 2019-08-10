@@ -5,8 +5,14 @@ FROM node:alpine
 WORKDIR /usr/app
 
 # Install dependencies
-COPY ./ ./
+# Copy the package json file first and install the dependencies
+COPY ./package.json ./
 RUN npm install
 
+# Copying the code
+# Helps to get the change in just source code and npm install is not run after
+# each and every change
+COPY ./index.js ./
+
 # Default command
-CMD ["npm", "start"] 
+CMD ["npm", "start"]
