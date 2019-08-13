@@ -1,5 +1,6 @@
 const express = require("express");
 const redis = require("redis");
+const process = require("process");
 
 const app = express();
 // we need to specify the redis IP and Port where we want to connect to Redis
@@ -10,6 +11,7 @@ const client = redis.createClient({
 client.set("visits", 0);
 
 app.get("/",(req,res)=>{
+    process.exit(1);
     client.get('visits', (err, visits) =>{
         res.send("Number of site visits: " + visits);
         client.set("visits", parseInt(visits) + 1);
